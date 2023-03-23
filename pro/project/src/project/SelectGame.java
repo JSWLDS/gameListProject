@@ -8,11 +8,11 @@ public class SelectGame {
 		
 		int cnt = 0;
 		
-		System.out.println("=============제작사==============장르====================이름=========");
+		System.out.println("=============제작사===============장르===================이름=========");
 		System.out.println();
 		for(int i=0; i<gameList.getGameList().size(); i++) {
 			if(gameList.getGameList().get(i).getGameDeveloper().equals(keyword)) {
-				System.out.printf("     %10s%20s%20s\n"
+				System.out.printf("     %10s%20s%19s\n"
             			, gameList.getGameList().get(i).getGameDeveloper()
             			, gameList.getGameList().get(i).getGenre()
             			, gameList.getGameList().get(i).getGameName());
@@ -30,15 +30,16 @@ public class SelectGame {
 		
 		int cnt = 0;
 		
-		System.out.println("=============제작사==============장르====================이름=========");
+		System.out.println("=============제작사===============장르===================이름=========");
 		System.out.println();
 		for(int i=0; i<gameList.getGameList().size(); i++) {
 			if(gameList.getGameList().get(i).getGameName().equals(keyword)) {
-				System.out.printf("     %10s%20s%20s\n"
+				System.out.printf("     %10s%20s%19s\n"
             			, gameList.getGameList().get(i).getGameDeveloper()
             			, gameList.getGameList().get(i).getGenre()
             			, gameList.getGameList().get(i).getGameName());
-            }
+				cnt++;
+			}
 		}
 		if(cnt == 0) {
 			System.out.println("ERROR : 검색한 게임이 존재하지 않습니다.");
@@ -50,15 +51,16 @@ public class SelectGame {
 		
 		int cnt = 0;
 		
-		System.out.println("=============제작사==============장르====================이름=========");
+		System.out.println("=============제작사===============장르===================이름=========");
 		System.out.println();
 		for(int i=0; i<gameList.getGameList().size(); i++) {
 			if(gameList.getGameList().get(i).getGenre().equals(keyword)) {
-				System.out.printf("     %10s%20s%20s\n"
+				System.out.printf("     %10s%20s%19s\n"
             			, gameList.getGameList().get(i).getGameDeveloper()
             			, gameList.getGameList().get(i).getGenre()
             			, gameList.getGameList().get(i).getGameName());
             }
+			cnt++;
 		}
 		if(cnt == 0) {
 			System.out.println("ERROR : 검색한 게임이 존재하지 않습니다.");
@@ -69,14 +71,16 @@ public class SelectGame {
 
 	public boolean selectGame(String gameDeveloper, String gameGenre, String gameName, GameList gameList) {
 		
-		boolean exist = true;
+		boolean exist = false;
 		
 		for(int i=0; i<gameList.getGameList().size(); i++) {
+			
 			String genre = gameList.getGameList().get(i).getGenre();
 			String developer = gameList.getGameList().get(i).getGameDeveloper();
 			String name = gameList.getGameList().get(i).getGameName();
+			
 			if( developer.equals(gameDeveloper) && genre.equals(gameGenre) && name.equals(gameName)) {
-				exist = false;
+				exist = true;
             }
 		}
 		

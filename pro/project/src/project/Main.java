@@ -20,7 +20,7 @@ public class Main {
 		gameList.getGameList().add(new GameInfomation("넥슨", "캐주얼레이싱", "카트라이더"));
 		gameList.getGameList().add(new GameInfomation("모장", "오픈월드", "마인크래프트"));
 		gameList.getGameList().add(new GameInfomation("호요버스", "오픈월드", "원신"));
-		gameList.getGameList().add(new GameInfomation("네오플", "MORPG", "던전앤 파이터"));
+		gameList.getGameList().add(new GameInfomation("네오플", "MORPG", "던전앤파이터"));
 		gameList.getGameList().add(new GameInfomation("유비소프트", "FPS", "레인보우식스시즈"));
 		gameList.getGameList().add(new GameInfomation("넥슨", "스포츠", "피파온라인4"));
 		gameList.getGameList().add(new GameInfomation("블리자드", "ARPG", "디아블로4"));
@@ -75,7 +75,7 @@ public class Main {
                 break;
 
             case 2:		
-            	System.out.println("=============제작사==============장르====================이름=========");
+            	System.out.println("=============제작사===============장르===================이름=========");
             	System.out.println();
                 for(int i=0; i<getGameDeveloper.size(); i++) {
                 	for(int j=0; j<gameList.getGameList().size(); j++) {
@@ -135,6 +135,7 @@ public class Main {
                     		String newDeveloper = sc.next();
                     		
                     		if(selectGame.selectGame(newDeveloper, gameList.getGameList().get(i).getGenre(), gameList.getGameList().get(i).getGameName(), gameList)) {
+                    			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     			break;
                     		}
@@ -148,7 +149,8 @@ public class Main {
                     		System.out.print("새로운 장르를 입력하세요 : ");
                     		String newGenre = sc.next();
                     		
-                    		if(selectGame.selectGame(newGenre, gameList.getGameList().get(i).getGenre(), gameList.getGameList().get(i).getGameName(), gameList)) {
+                    		if(selectGame.selectGame(gameList.getGameList().get(i).getGameDeveloper() , newGenre, gameList.getGameList().get(i).getGameName(), gameList)) {
+                    			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     			break;
                     		}
@@ -163,7 +165,8 @@ public class Main {
                       		System.out.print("새로운 게임 이름을 입력하세요 : ");
                     		String newGameName = sc.next();
                     		
-                    		if(selectGame.selectGame(newGameName, gameList.getGameList().get(i).getGenre(), gameList.getGameList().get(i).getGameName(), gameList)) {
+                    		if(selectGame.selectGame(gameList.getGameList().get(i).getGameDeveloper() , gameList.getGameList().get(i).getGenre(), newGameName, gameList)) {
+                    			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     		}
                     		else {
@@ -183,6 +186,7 @@ public class Main {
                     		String newGameName = sc.next();
                     		
                     		if(selectGame.selectGame(newGameName, newGenre, newGameName, gameList)) {
+                    			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     			break;
                     		}
@@ -203,6 +207,7 @@ public class Main {
         			}else {
         				errorCount++;
         				if(errorCount >= gameList.getGameList().size()) {
+        					System.out.println();
         					System.out.println("ERROR : 해당 게임을 찾을 수 없습니다.");
         					break;
         				}
@@ -228,6 +233,7 @@ public class Main {
               	System.out.println();
             	break;
             case 6:
+            	System.out.println();
                 System.out.println("종료되었습니다.");
                 sc.close();
                 return;
