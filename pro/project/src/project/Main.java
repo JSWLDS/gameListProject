@@ -10,10 +10,11 @@ public class Main {
 
 	public static void main(String[] args) {
 	
-		GameList gameList = new GameList(); 
-		Scanner sc = new Scanner(System.in);
-		SelectGame selectGame = new SelectGame();
+		GameList gameList = new GameList();  // 모든 게임 객체를 담을 gameList 클래스 객체 생성
+		Scanner sc = new Scanner(System.in); // console로 입력 받기 때문에 Scanner 클래스 객체 생성.
+		SelectGame selectGame = new SelectGame(); // 검색한 결과를 검색하여 출력하거나, 중복된 게임을 검색하여 boolean 값을 반환하는 클래스 객체 생성.
 		
+		// 게임 list 객체에 기본 값을 설정하여 테스트에 편의성을 높임.
 		gameList.getGameList().add(new GameInfomation("라이엇", "MOBA", "리그오브레전드"));  // 제작사, 장르, 게임 이름
 		gameList.getGameList().add(new GameInfomation("블리자드", "FPS", "오버워치"));
 		gameList.getGameList().add(new GameInfomation("넥슨", "MMORPG", "메이플스토리"));
@@ -28,59 +29,50 @@ public class Main {
 		
 		
 		
-	      while(true) {
+	      while(true) { // 사용자가 종료를 원할 때 까지 서비스를 이용하게 하기위해 while문의 조건을 true로 하였다.  
     	  
-            System.out.println("1. 등록 | 2. 조회(전체) | 3. 검색 | 4. 수정 | 5. 삭제 | 6. 종료");
-            System.out.print("번호를 선택하시오 : ");	            
-            
-            List<String> getGameDeveloper = new ArrayList<String>(); 
-            
-            for(int i = 0; i < gameList.getGameList().size(); i++) {
-            	if(getGameDeveloper.size() <= 0) {
-            		getGameDeveloper.add(gameList.getGameList().get(i).getGameDeveloper());
-            	}
-            	else {
-	            	for(int j=0; j<getGameDeveloper.size(); j++) {
-	            		if(gameList.getGameList().get(i).getGameDeveloper().equals(getGameDeveloper.get(j))) {
-	            			continue;
-	            		}
-	            
-	            			getGameDeveloper.add(gameList.getGameList().get(i).getGameDeveloper());
-	            		
-            		}
-            	}
-            }
-        	HashSet<String> setDeduplication = new HashSet<>(getGameDeveloper);
-        	getGameDeveloper = new ArrayList<>(setDeduplication);
+            System.out.println("1. 등록 | 2. 조회(전체) | 3. 검색 | 4. 수정 | 5. 삭제 | 6. 종료"); // 기능 종류
+            System.out.print("번호를 선택하시오 : ");	             
         	
-            switch (sc.nextInt()) {
+            switch (sc.nextInt()) { // 정수형으로 입력받아 기능을 선택할 수 있게 switch문을 사용하였다.
             
-            case 1: 
+            case 1: // 등록 기능
+            	
                 System.out.println("==================게임 등록=================");
+                // 등록할 게임의 이름, 장르, 제작사를 문자열로 입력받는다.
                 String gameName, gameDeveloper, gameGenre;
                 System.out.print("게임 이름 : "); gameName = sc.next();
                 System.out.print("게임 장르 : "); gameGenre = sc.next();
-                System.out.print("게임 제작사 : "); gameDeveloper = sc.next();
+                System.out.print("게임 제작사 : "); gameDeveloper = sc.next(); 
                
+                // 등록할 게임의 정보가 이미 있는지 검사함.
                 boolean exist = selectGame.selectGame(gameDeveloper, gameGenre, gameName, gameList);
                 
                 System.out.println();
-              	if(exist) {
+              	if(exist) { // 등록할 게임이 존재하지 않으면 gameList에 등록한다.
               		gameList.getGameList().add(new GameInfomation(gameDeveloper, gameGenre, gameName));
               		System.out.println("등록 완료");
-              	} else {
-              		System.out.println("이미 존재하는 게임입니다.");
+              	} else {// 등록할 게임이 이미 존재하면 문구 출력하고 넘어감.
+              		System.out.println("ERROR : 이미 존재하는 게임입니다.");
               	}
               	System.out.println();
                 break;
 
             case 2:		
+
+                List<String> getGameDeveloper = new ArrayList<String>(); 
+                getGameDeveloper = selectGame.deduplication(getGameDeveloper, gameList);
+                		  
+            	HashSet<String> setDeduplication = new HashSet<>(getGameDeveloper);
+            	
+            	getGameDeveloper = new ArrayList<>(setDeduplication);
+            	
             	System.out.println("=============제작사===============장르===================이름=========");
             	System.out.println();
                 for(int i=0; i<getGameDeveloper.size(); i++) {
                 	for(int j=0; j<gameList.getGameList().size(); j++) {
 	                	if(getGameDeveloper.get(i).toString().equals(gameList.getGameList().get(j).getGameDeveloper().toString())) {
-	                		System.out.printf("     %10s%20s%20s\n"
+	                		System.out.printf("     %10s%20s%19s\n"
 		                			, gameList.getGameList().get(j).getGameDeveloper()
 		                			, gameList.getGameList().get(j).getGenre()
 		                			, gameList.getGameList().get(j).getGameName());
@@ -90,7 +82,9 @@ public class Main {
                 System.out.println();
         		System.out.println("=================================================================");
                 break;
+                
             case 3 :
+            	
             	System.out.print("검색 키워드를 입력하세요 [ 1 : 제작사 | 2 : 장르 | 3 : 이름 ] : ");
             	int num = sc.nextInt();
  
@@ -120,6 +114,7 @@ public class Main {
             	break;
             	
             case 4 :
+            	
             	System.out.print("변경할 게임 이름을 입력하세요 : ");
         		String keyword_4 = sc.next();
         		int errorCount = 0;
@@ -214,7 +209,9 @@ public class Main {
         			}
         		}
             	break;
+            	
             case 5 :
+            	
             	System.out.print("삭제할 게임의 이름을 입력하세요 : ");
             	String keyword_5 = sc.next();
             	int cnt = 0;
@@ -232,7 +229,9 @@ public class Main {
             	}
               	System.out.println();
             	break;
+            	
             case 6:
+            	
             	System.out.println();
                 System.out.println("종료되었습니다.");
                 sc.close();

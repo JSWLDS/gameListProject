@@ -1,5 +1,8 @@
 package project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SelectGame {
 	
 	public SelectGame() {}
@@ -85,6 +88,25 @@ public class SelectGame {
 		}
 		
 		return exist;
+	}
+
+	//입력한 정보들을 모든 게임객체 정보가 담겨있는 gameList 객체에서 등록할 게임의 정보가 중복되는지 검사함.
+	public List<String> deduplication(List<String> getGameDeveloper, GameList gameList) {
+
+        for(int i = 0; i < gameList.getGameList().size(); i++) {
+        	if(getGameDeveloper.size() <= 0) {
+        		getGameDeveloper.add(gameList.getGameList().get(i).getGameDeveloper());
+        	}
+        	else {
+            	for(int j=0; j<getGameDeveloper.size(); j++) {
+            		if(gameList.getGameList().get(i).getGameDeveloper().equals(getGameDeveloper.get(j))) {
+            			continue;
+            		}
+            		getGameDeveloper.add(gameList.getGameList().get(i).getGameDeveloper());
+        		}
+        	}
+        }
+		return getGameDeveloper;
 	}
 	
 }
