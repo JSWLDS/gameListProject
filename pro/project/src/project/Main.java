@@ -47,9 +47,9 @@ public class Main {
                 System.out.println();
               	if(selectGame.selectGame(gameDeveloper, gameGenre, gameName, gameList)) { // 등록할 게임이 이미 존재하면 문구 출력하고 넘어감.
               		System.out.println("ERROR : 이미 존재하는 게임입니다.");
-              		System.out.println("등록 완료");
               	} else { // 등록할 게임이 존재하지 않으면 gameList에 등록한다.
               		gameList.getGameList().add(new GameInfomation(gameDeveloper, gameGenre, gameName));
+              		System.out.println("등록 완료");
               	}
               	System.out.println();
                 break;
