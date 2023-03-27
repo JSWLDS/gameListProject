@@ -1,8 +1,6 @@
 package project;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -59,16 +57,18 @@ public class Main {
                 break;
 
             case 2:		
-
+            	
+            	// 저장된 모든 게임을 출력하기 위해 제작사를 기준으로 정렬하여 출력하게한다.
+            	// 그래서 저장된 제작사를 list로 담기위해 list 객체를 만들었다.
                 List<String> getGameDeveloper = new ArrayList<String>(); 
+                
+                // 중복 없는 제작사 list 완성.
                 getGameDeveloper = selectGame.deduplication(getGameDeveloper, gameList);
-                		  
-            	HashSet<String> setDeduplication = new HashSet<>(getGameDeveloper);
-            	
-            	getGameDeveloper = new ArrayList<>(setDeduplication);
-            	
+
             	System.out.println("=============제작사===============장르===================이름=========");
             	System.out.println();
+            	
+            	// 2중 for문을 이용하여 모든 게임의 제작사를 중복이 제거된 제작사 list객체의 값과 순서대로 검사하여 출력한다.
                 for(int i=0; i<getGameDeveloper.size(); i++) {
                 	for(int j=0; j<gameList.getGameList().size(); j++) {
 	                	if(getGameDeveloper.get(i).toString().equals(gameList.getGameList().get(j).getGameDeveloper().toString())) {
@@ -85,9 +85,11 @@ public class Main {
                 
             case 3 :
             	
+            	// 검색할 키워드 출력.
             	System.out.print("검색 키워드를 입력하세요 [ 1 : 제작사 | 2 : 장르 | 3 : 이름 ] : ");
             	int num = sc.nextInt();
- 
+            	
+            	// 키워드별로 검색하여 출력한다.
             	if(num == 1) {
             		
             		System.out.print("검색할 제작사를 입력하세요 : ");
@@ -107,7 +109,9 @@ public class Main {
             		selectGame.selectGameName(gameList, keyword);
             		
             	} else {
+            		
             		System.out.println("ERROR : 잘못 입력하셨습니다.");
+            		
             	}
             	System.out.println("=================================================================");
             	System.out.println();
@@ -129,12 +133,13 @@ public class Main {
                     		System.out.print("새로운 제작사 이름을 입력하세요 : ");
                     		String newDeveloper = sc.next();
                     		
+                    		// 중복 검사 메소드를 호출하여 중복을 검사함.
                     		if(selectGame.selectGame(newDeveloper, gameList.getGameList().get(i).getGenre(), gameList.getGameList().get(i).getGameName(), gameList)) {
                     			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     			break;
                     		}
-                    		else {
+                    		else { // 중복이 없으면 변경.
                     			gameList.getGameList().get(i).setGameDeveloper(newDeveloper);
                     			success = true;
                     		}
@@ -144,12 +149,13 @@ public class Main {
                     		System.out.print("새로운 장르를 입력하세요 : ");
                     		String newGenre = sc.next();
                     		
+                    		// 중복 검사 메소드를 호출하여 중복을 검사함.
                     		if(selectGame.selectGame(gameList.getGameList().get(i).getGameDeveloper() , newGenre, gameList.getGameList().get(i).getGameName(), gameList)) {
                     			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     			break;
                     		}
-                    		else {
+                    		else { // 중복이 없으면 변경.
                     			gameList.getGameList().get(i).setGenre(newGenre);
                     			success = true;
                     		}
@@ -160,11 +166,12 @@ public class Main {
                       		System.out.print("새로운 게임 이름을 입력하세요 : ");
                     		String newGameName = sc.next();
                     		
+                    		// 중복 검사 메소드를 호출하여 중복을 검사함.
                     		if(selectGame.selectGame(gameList.getGameList().get(i).getGameDeveloper() , gameList.getGameList().get(i).getGenre(), newGameName, gameList)) {
                     			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     		}
-                    		else {
+                    		else { // 중복이 없으면 변경.
                     			gameList.getGameList().get(i).setGameName(newGameName);
                     			success = true;
                     		}
@@ -180,12 +187,13 @@ public class Main {
                     		System.out.print("새로운 게임 이름을 입력하세요 : ");
                     		String newGameName = sc.next();
                     		
+                    		// 중복 검사 메소드를 호출하여 중복을 검사함.
                     		if(selectGame.selectGame(newGameName, newGenre, newGameName, gameList)) {
                     			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
                     			break;
                     		}
-                    		else {
+                    		else { // 중복이 없으면 변경.
                     			
                     			gameList.getGameList().get(i).setGameDeveloper(newDeveloper);
                         		gameList.getGameList().get(i).setGenre(newGenre);
@@ -194,12 +202,12 @@ public class Main {
                     			success = true;
                     		}  		
                     	}
-                    	if(success) {
+                    	if(success) { // 변경이 정상적으로 완료 되었으면 알림을 출력.
                         	System.out.println();
                     		System.out.println("변경되었습니다.");	
                     	}
                       	System.out.println();
-        			}else {
+        			}else { // 검색한 게임이 존재하지 않으면 ERROR 출력.
         				errorCount++;
         				if(errorCount >= gameList.getGameList().size()) {
         					System.out.println();
@@ -214,30 +222,35 @@ public class Main {
             	
             	System.out.print("삭제할 게임의 이름을 입력하세요 : ");
             	String keyword_5 = sc.next();
-            	int cnt = 0;
+            	boolean exist1 = false;
+            	
+            	// 삭제할 게임이 존재하면 삭제를 진행한다.
             	for(int i=0; i<gameList.getGameList().size(); i++) {
         			if(gameList.getGameList().get(i).getGameName().equals(keyword_5)) {
         				gameList.getGameList().remove(i);
-        				cnt++;
+        				// 존재하면 true로 초기화한다.
+        				exist1  = true;
         			}
         		}
             	System.out.println();
-            	if(cnt == 0) {
+            	
+            	// 존재하지 않으면 ERROR 출력.
+            	if(exist1 == false) {
             		System.out.println("ERROR : 삭제할 게임이 존재하지 않습니다.");
-            	} else {
+            	} else { // 존재하면 알림 출력.
             		System.out.println("삭제되었습니다.");
             	}
               	System.out.println();
             	break;
             	
             case 6:
-            	
+            	// 종료를 선택하면 return으로 프르세스 종료.
             	System.out.println();
                 System.out.println("종료되었습니다.");
                 sc.close();
                 return;
                 
-            default:
+            default: // 오류 출력
                 throw new IllegalArgumentException("Unexpected value: ");
             }
         }
