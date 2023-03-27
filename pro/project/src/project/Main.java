@@ -43,15 +43,13 @@ public class Main {
                 System.out.print("게임 장르 : "); gameGenre = sc.next();
                 System.out.print("게임 제작사 : "); gameDeveloper = sc.next(); 
                
-                // 등록할 게임의 정보가 이미 있는지 검사함.
-                boolean exist = selectGame.selectGame(gameDeveloper, gameGenre, gameName, gameList);
-                
+                // 등록할 게임의 정보가 이미 있는지 검사함.               
                 System.out.println();
-              	if(exist) { // 등록할 게임이 존재하지 않으면 gameList에 등록한다.
-              		gameList.getGameList().add(new GameInfomation(gameDeveloper, gameGenre, gameName));
-              		System.out.println("등록 완료");
-              	} else {// 등록할 게임이 이미 존재하면 문구 출력하고 넘어감.
+              	if(selectGame.selectGame(gameDeveloper, gameGenre, gameName, gameList)) { // 등록할 게임이 이미 존재하면 문구 출력하고 넘어감.
               		System.out.println("ERROR : 이미 존재하는 게임입니다.");
+              		System.out.println("등록 완료");
+              	} else { // 등록할 게임이 존재하지 않으면 gameList에 등록한다.
+              		gameList.getGameList().add(new GameInfomation(gameDeveloper, gameGenre, gameName));
               	}
               	System.out.println();
                 break;
@@ -222,20 +220,20 @@ public class Main {
             	
             	System.out.print("삭제할 게임의 이름을 입력하세요 : ");
             	String keyword_5 = sc.next();
-            	boolean exist1 = false;
+            	boolean exist = false;
             	
             	// 삭제할 게임이 존재하면 삭제를 진행한다.
             	for(int i=0; i<gameList.getGameList().size(); i++) {
         			if(gameList.getGameList().get(i).getGameName().equals(keyword_5)) {
         				gameList.getGameList().remove(i);
         				// 존재하면 true로 초기화한다.
-        				exist1  = true;
+        				exist  = true;
         			}
         		}
             	System.out.println();
             	
             	// 존재하지 않으면 ERROR 출력.
-            	if(exist1 == false) {
+            	if(exist == false) {
             		System.out.println("ERROR : 삭제할 게임이 존재하지 않습니다.");
             	} else { // 존재하면 알림 출력.
             		System.out.println("삭제되었습니다.");

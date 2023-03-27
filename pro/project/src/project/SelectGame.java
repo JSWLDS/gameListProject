@@ -84,7 +84,7 @@ public class SelectGame {
 	public boolean selectGame(String gameDeveloper, String gameGenre, String gameName, GameList gameList) {
 		
 		// 기본값 true.
-		boolean exist = true;
+		boolean exist = false;
 		
 		for(int i=0; i<gameList.getGameList().size(); i++) {
 			
@@ -94,7 +94,7 @@ public class SelectGame {
 			
 			// 존재하면 존재여부를 false로 초기화.
 			if( developer.equals(gameDeveloper) && genre.equals(gameGenre) && name.equals(gameName)) {
-				exist = false;
+				exist = true;
             }
 		}
 		
