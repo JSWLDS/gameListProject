@@ -108,8 +108,9 @@ public class Main {
             		
             	} else {
             		
+            		System.out.println();
             		System.out.println("ERROR : 잘못 입력하셨습니다.");
-            		
+            		System.out.println();
             	}
             	System.out.println("=================================================================");
             	System.out.println();
@@ -135,6 +136,7 @@ public class Main {
                     		if(selectGame.selectGame(newDeveloper, gameList.getGameList().get(i).getGenre(), gameList.getGameList().get(i).getGameName(), gameList)) {
                     			System.out.println();
                     			System.out.println("ERROR : 새로운 이름이 이미 존재합니다.");
+                    			System.out.println();
                     			break;
                     		}
                     		else { // 중복이 없으면 변경.
@@ -210,6 +212,7 @@ public class Main {
         				if(errorCount >= gameList.getGameList().size()) {
         					System.out.println();
         					System.out.println("ERROR : 해당 게임을 찾을 수 없습니다.");
+        					System.out.println();
         					break;
         				}
         			}
