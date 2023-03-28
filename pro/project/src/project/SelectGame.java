@@ -69,8 +69,8 @@ public class SelectGame {
             			, gameList.getGameList().get(i).getGameDeveloper()
             			, gameList.getGameList().get(i).getGenre()
             			, gameList.getGameList().get(i).getGameName());
+				cnt++;
             }
-			cnt++;
 		}
 		// 아무것도 없으면 ERROR 출력.
 		if(cnt == 0) {
